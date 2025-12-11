@@ -54,7 +54,7 @@ const nextConfig = {
     instrumentationHook: true,
   },
 
-  // Cabeçalhos de segurança (fallback - principal está no middleware)
+  // Cabeçalhos de segurança e cache
   async headers() {
     return [
       {
@@ -71,6 +71,46 @@ const nextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin'
+          },
+        ],
+      },
+      // Cache para imagens (1 ano)
+      {
+        source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache para fontes (1 ano)
+      {
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache para arquivos estáticos (1 ano)
+      {
+        source: '/:path*.{png,jpg,jpeg,gif,webp,svg,ico,woff,woff2,ttf,eot}',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache para JS e CSS do Next.js (1 ano)
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
