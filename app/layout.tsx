@@ -12,7 +12,7 @@ import GoogleTagConditional from "@/components/GoogleTagConditional"
 
 // Metadata para SEO - Whitepage (Free Fire)
 export const metadata: Metadata = {
-  title: "Diamantes FF Grátis - Dicas Free Fire, Cupons e Promoções FF",
+  title: "Central de Recarga de Diamantes Free Fire - Dicas Free Fire, Cupons e Promoções FF",
   description: "Dicas exclusivas de Free Fire, cupons de diamantes grátis, promoções FF e estratégias para melhorar seu jogo. Aproveite eventos e ganhe recompensas!",
   keywords: [
     "diamantes ff grátis",
@@ -104,7 +104,9 @@ export default function RootLayout({
         <DevToolsBlocker />
         <AntiScraping>
           <ClickTracker>
-            <Suspense fallback={null}>{children}</Suspense>
+            <main>
+              <Suspense fallback={null}>{children}</Suspense>
+            </main>
           </ClickTracker>
         </AntiScraping>
       </body>

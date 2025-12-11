@@ -89,23 +89,32 @@ export default function HeadManager() {
       return;
     }
 
-    // 1. Injetar script de inicialização do Pixel Google
+    // 1. Injetar script de inicialização do Pixel Google com tratamento de erro
     const pixelInitScript = document.createElement('script');
     pixelInitScript.id = 'utmify-pixel-init';
     pixelInitScript.innerHTML = `
-      window.googlePixelId = "${utmifyPixelId}";
-      if (!document.getElementById("utmify-google-pixel")) {
-        var a = document.createElement("script");
-        a.id = "utmify-google-pixel";
-        a.setAttribute("async", "");
-        a.setAttribute("defer", "");
-        a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
-        document.head.appendChild(a);
-      }
+      (function() {
+        try {
+          window.googlePixelId = "${utmifyPixelId}";
+          if (!document.getElementById("utmify-google-pixel")) {
+            var a = document.createElement("script");
+            a.id = "utmify-google-pixel";
+            a.setAttribute("async", "");
+            a.setAttribute("defer", "");
+            a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+            a.onerror = function() {
+              console.warn('UTMify pixel script failed to load');
+            };
+            document.head.appendChild(a);
+          }
+        } catch (e) {
+          console.warn('Error initializing UTMify pixel:', e);
+        }
+      })();
     `;
     document.head.appendChild(pixelInitScript);
 
-    // 2. Injetar script de UTMs (verificar se já existe)
+    // 2. Injetar script de UTMs com tratamento de erro
     if (!document.getElementById('utmify-utms-script')) {
       const utmsScript = document.createElement('script');
       utmsScript.id = 'utmify-utms-script';
@@ -114,6 +123,9 @@ export default function HeadManager() {
       utmsScript.setAttribute('data-utmify-prevent-subids', '');
       utmsScript.async = true;
       utmsScript.defer = true;
+      utmsScript.onerror = () => {
+        console.warn('UTMify UTMs script failed to load');
+      };
       document.head.appendChild(utmsScript);
     }
   }, [mounted, utmifyPixelId, isDevelopment]); // Removido pathname para evitar recargas desnecessárias
