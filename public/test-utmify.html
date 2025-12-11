@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste UTMify - Localhost</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 10px;
+    }
+    .info {
+      background: #e3f2fd;
+      padding: 15px;
+      border-left: 4px solid #2196F3;
+      margin: 20px 0;
+    }
+    .warning {
+      background: #fff3e0;
+      padding: 15px;
+      border-left: 4px solid #ff9800;
+      margin: 20px 0;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 5px;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    #output {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 20px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 Teste UTMify - Localhost</h1>
+    
+    <div class="info">
+      <strong>📋 Instruções:</strong>
+      <ul>
+        <li>Abra o console do navegador (F12)</li>
+        <li>Clique nos botões abaixo para testar</li>
+        <li>Observe as requisições na aba Network</li>
+      </ul>
+    </div>
+
+    <div class="warning">
+      <strong>⚠️ Atenção:</strong> Este teste carrega os scripts reais do UTMify. 
+      Verifique se há múltiplas requisições sendo feitas.
+    </div>
+
+    <h2>🎯 Controles de Teste</h2>
+    <button onclick="loadUtmifyScripts()">Carregar Scripts UTMify</button>
+    <button onclick="checkScripts()">Verificar Scripts Carregados</button>
+    <button onclick="clearOutput()">Limpar Log</button>
+
+    <h2>📊 Output / Console</h2>
+    <div id="output">Aguardando ação...</div>
+  </div>
+
+  <script>
+    const output = document.getElementById('output');
+    
+    function log(message) {
+      const timestamp = new Date().toLocaleTimeString();
+      output.textContent += `[${timestamp}] ${message}\n`;
+      console.log(message);
+    }
+
+    function clearOutput() {
+      output.textContent = 'Log limpo.\n';
+    }
+
+    function loadUtmifyScripts() {
+      log('🔄 Carregando scripts do UTMify...');
+      
+      // Simular o mesmo comportamento do HeadManager.tsx
+      const pixelId = 'SEU_PIXEL_ID_AQUI'; // Substitua pelo seu Pixel ID
+      
+      // 1. Script de inicialização do Pixel Google
+      if (!document.getElementById('utmify-pixel-init')) {
+        const pixelInitScript = document.createElement('script');
+        pixelInitScript.id = 'utmify-pixel-init';
+        pixelInitScript.innerHTML = `
+          window.googlePixelId = "${pixelId}";
+          if (!document.getElementById("utmify-google-pixel")) {
+            var a = document.createElement("script");
+            a.id = "utmify-google-pixel";
+            a.setAttribute("async", "");
+            a.setAttribute("defer", "");
+            a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+            document.head.appendChild(a);
+            console.log('✅ Script pixel-google.js carregado');
+          }
+        `;
+        document.head.appendChild(pixelInitScript);
+        log('✅ Script de inicialização do Pixel criado');
+      } else {
+        log('⚠️ Script de inicialização já existe');
+      }
+
+      // 2. Script de UTMs
+      if (!document.getElementById('utmify-utms-script')) {
+        const utmsScript = document.createElement('script');
+        utmsScript.id = 'utmify-utms-script';
+        utmsScript.src = 'https://cdn.utmify.com.br/scripts/utms/latest.js';
+        utmsScript.setAttribute('data-utmify-prevent-xcod-sck', '');
+        utmsScript.setAttribute('data-utmify-prevent-subids', '');
+        utmsScript.async = true;
+        utmsScript.defer = true;
+        
+        utmsScript.onload = () => {
+          log('✅ Script utms/latest.js carregado com sucesso');
+        };
+        
+        utmsScript.onerror = () => {
+          log('❌ Erro ao carregar script utms/latest.js');
+        };
+        
+        document.head.appendChild(utmsScript);
+        log('🔄 Script UTMs adicionado ao DOM');
+      } else {
+        log('⚠️ Script UTMs já existe');
+      }
+    }
+
+    function checkScripts() {
+      log('🔍 Verificando scripts carregados...');
+      
+      const scripts = document.querySelectorAll('script');
+      let utmifyScripts = 0;
+      
+      scripts.forEach(script => {
+        if (script.src.includes('utmify') || script.id.includes('utmify')) {
+          utmifyScripts++;
+          log(`  ✓ ${script.id || script.src}`);
+        }
+      });
+      
+      log(`📊 Total de scripts UTMify: ${utmifyScripts}`);
+      
+      // Verificar variáveis globais
+      if (typeof window.googlePixelId !== 'undefined') {
+        log(`✅ window.googlePixelId definido: ${window.googlePixelId}`);
+      } else {
+        log('❌ window.googlePixelId NÃO definido');
+      }
+    }
+
+    // Monitorar requisições de rede (se possível)
+    log('🎯 Página de teste carregada');
+    log('📝 Abra o DevTools > Network para monitorar requisições');
+  </script>
+</body>
+</html>

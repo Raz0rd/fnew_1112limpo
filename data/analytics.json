@@ -1,0 +1,54 @@
+{
+  "realUserClicks": 4,
+  "botClicks": 0,
+  "qrGenerated": 0,
+  "paid": 0,
+  "lastReset": "2025-09-29T20:09:51.149Z",
+  "antibotEnabled": false,
+  "logs": [
+    {
+      "id": "z6rmx78",
+      "timestamp": "2025-09-29T20:10:17.458Z",
+      "type": "click",
+      "userType": "real",
+      "destination": "offerpage",
+      "ip": "::ffff:127.0.0.1",
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+      "pathname": "/",
+      "utmParams": {}
+    },
+    {
+      "id": "n7efygn",
+      "timestamp": "2025-09-29T20:10:29.451Z",
+      "type": "click",
+      "userType": "real",
+      "destination": "offerpage",
+      "ip": "::ffff:127.0.0.1",
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+      "pathname": "/",
+      "utmParams": {}
+    },
+    {
+      "id": "skuv1xa",
+      "timestamp": "2025-09-29T20:10:42.803Z",
+      "type": "click",
+      "userType": "real",
+      "destination": "whitepage",
+      "ip": "::ffff:127.0.0.1",
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+      "pathname": "/",
+      "utmParams": {}
+    },
+    {
+      "id": "ulrlj7j",
+      "timestamp": "2025-09-29T20:11:10.559Z",
+      "type": "click",
+      "userType": "real",
+      "destination": "whitepage",
+      "ip": "::ffff:127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+      "pathname": "/",
+      "utmParams": {}
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Next.js
+.next/
+out/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test.local
+.env.production.local
+.env.lead.example
+.env.venda.example
+
+# Keep template files
+!.env.template
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Local Netlify folder
+.netlify
+.netlifyignore
+
+# Vercel
+.vercel
+vercel.json
+
+# Git
+.git/
+
+# Imagens temporárias na raiz (mas permitir public/images/)
+/*.jpg
+/*.png
+/*.webp
+/*.jpeg
+
+# Arquivos HTML temporários
+/*.html
+
+# Google Sheets credentials
+chavesheets.json
+
+# Scripts Python
+generatepdfs.py
+pedidos.csv
+pdfs_pedidos/
+
+# Arquivos sensíveis e documentação
+*.env
+*.md
+*.txt
+*.py
+env real

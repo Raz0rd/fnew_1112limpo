@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonte Metropolis */
+@font-face {
+  font-family: 'Metropolis';
+  src: url('/fonts/Metropolis-Regular-e920e6b0.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('/fonts/Metropolis-Medium-f3a73873.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('/fonts/Metropolis-Bold-9a712a2c.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Forçar html e body a terem background branco e texto escuro */
+  html:not(.dark),
+  html:not(.dark) body {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+  }
+}
+
+/* Forçar bg-white a ser sempre branco quando não estiver no dark mode */
+html:not(.dark) .bg-white {
+  background-color: #ffffff !important;
+}
+
+/* Forçar todos os backgrounds a respeitarem as classes Tailwind */
+html:not(.dark) [class*="bg-gray-"],
+html:not(.dark) [class*="bg-slate-"],
+html:not(.dark) [class*="bg-red-"],
+html:not(.dark) [class*="bg-blue-"] {
+  background-color: inherit;
+}
+
+/* Forçar textos escuros em todos os elementos de texto (exceto dentro de bg-destructive) */
+html:not(.dark) p:not([class*="text-"]):not(.bg-destructive *),
+html:not(.dark) span:not([class*="text-"]):not(.bg-destructive *),
+html:not(.dark) div:not([class*="text-"]):not(.bg-destructive *),
+html:not(.dark) h1:not([class*="text-"]):not(.bg-destructive *),
+html:not(.dark) h2:not([class*="text-"]):not(.bg-destructive *),
+html:not(.dark) h3:not([class*="text-"]):not(.bg-destructive *),
+html:not(.dark) h4:not([class*="text-"]):not(.bg-destructive *),
+html:not(.dark) h5:not([class*="text-"]):not(.bg-destructive *),
+html:not(.dark) h6:not([class*="text-"]):not(.bg-destructive *),
+html:not(.dark) label:not([class*="text-"]):not(.bg-destructive *) {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Botões vermelhos devem ter texto branco */
+html:not(.dark) button[class*="bg-red-"],
+html:not(.dark) button[class*="bg-[#"],
+html:not(.dark) .bg-red-500,
+html:not(.dark) .bg-red-600,
+html:not(.dark) [style*="background-color: #E4"],
+html:not(.dark) [style*="background-color: #D8"],
+html:not(.dark) [style*="background: #E4"],
+html:not(.dark) [style*="background: #D8"] {
+  color: white !important;
+}
+
+/* Forçar backgrounds vermelhos a serem vermelhos */
+html:not(.dark) .bg-red-500 {
+  background-color: #ef4444 !important;
+}
+
+html:not(.dark) .bg-red-600 {
+  background-color: #dc2626 !important;
+}
+
+/* Botões com bg-white devem ter texto escuro */
+html:not(.dark) button.bg-white,
+html:not(.dark) button.bg-white * {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Forçar textos específicos a serem BRANCOS */
+html:not(.dark) [class*="badge"],
+html:not(.dark) [class*="tag"],
+html:not(.dark) [class*="label"],
+html:not(.dark) .text-white {
+  color: white !important;
+}
+
+/* Textos específicos do modal de cookie devem ser brancos */
+html:not(.dark) .bg-black\/75 .text-base,
+html:not(.dark) .bg-black\/75 a {
+  color: white !important;
+}
+
+/* Badge/tag de promo deve ter texto branco */
+html:not(.dark) .bg-destructive,
+html:not(.dark) .bg-destructive *,
+html:not(.dark) .bg-destructive span,
+html:not(.dark) div.bg-destructive {
+  color: white !important;
+}
+
+/* Footer deve ter textos escuros (sobrescrever regra anterior) */
+html:not(.dark) footer,
+html:not(.dark) footer * {
+  color: inherit !important;
+}
+
+/* Esconder scrollbar */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+  --radius: 0.5rem;
+  
+  /* Variáveis customizadas - valores claros */
+  --bg-base: 255 255 255; /* Branco */
+  --text-primary: 17 24 39; /* Cinza escuro */
+  --text-title: 17 24 39; /* Cinza escuro */
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+}
+
+/* Customizações específicas do projeto */
+@layer utilities {
+  .pt-20 {
+    padding-top: 3.5rem !important;
+  }
+  
+  .h-40 {
+    height: 5rem !important;
+  }
+  
+  /* Imagem de pagamento seguro com border-radius */
+  .payment-secure-img {
+    border-radius: 4px !important;
+  }
+  
+  /* Tamanhos dos ícones de moedas (Diamantes/Delta Coins) */
+  .coin-icon {
+    /* Mobile */
+    height: 0.875rem; /* 14px - aumentado */
+    width: 0.875rem;  /* 14px - aumentado */
+    margin-right: 0.25rem; /* me-1 */
+    object-fit: contain;
+  }
+  
+  /* Tablet */
+  @media (min-width: 640px) {
+    .coin-icon {
+      height: 1rem; /* 16px - aumentado */
+      width: 1rem;  /* 16px - aumentado */
+    }
+  }
+  
+  /* Desktop */
+  @media (min-width: 768px) {
+    .coin-icon {
+      height: 1.25rem; /* 20px - aumentado */
+      width: 1.25rem;  /* 20px - aumentado */
+    }
+  }
+  
+  /* Tamanho do texto dos valores de moedas */
+  .coin-value-text {
+    /* Mobile */
+    font-size: 0.875rem; /* 14px - aumentado */
+    font-weight: 500;
+  }
+  
+  /* Tablet */
+  @media (min-width: 640px) {
+    .coin-value-text {
+      font-size: 1rem; /* 16px - aumentado */
+    }
+  }
+  
+  /* Desktop */
+  @media (min-width: 768px) {
+    .coin-value-text {
+      font-size: 1.375rem; /* 22px - aumentado */
+    }
+  }
+  
+  /* Adicione aqui outras customizações que você precisa */
+  
+  /* Border radius customizado para o banner */
+  .rounded-t-2xl {
+    border-top-left-radius: 0.6rem;
+    border-top-right-radius: 0.6rem;
+  }
+  
+  /* Fix para o carousel */
+  .py-6 {
+    padding-top: 2.6rem !important;
+    padding-bottom: 1.8rem !important;
+  }
+  
+  /* Header desktop padding */
+  @media (min-width: 640px) {
+    .sm\:px-4 {
+      padding-left: 9rem !important;
+      padding-right: 11rem !important;
+    }
+  }
+}

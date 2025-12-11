@@ -1,0 +1,258 @@
+/* Loading - DEVE carregar ANTES de tudo */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Fix para teclado mobile - prevenir zoom e quebra de layout */
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Prevenir zoom em inputs no iOS */
+input,
+textarea,
+select {
+  font-size: 16px !important;
+}
+
+/* Fix para teclado virtual no iOS */
+@supports (-webkit-touch-callout: none) {
+  html {
+    height: -webkit-fill-available;
+  }
+  
+  body {
+    min-height: -webkit-fill-available;
+  }
+}
+
+.spinner-fast {
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonte Metropolis */
+@font-face {
+  font-family: 'Metropolis';
+  src: url('/fonts/Metropolis-Regular-e920e6b0.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('/fonts/Metropolis-Medium-f3a73873.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('/fonts/Metropolis-Bold-9a712a2c.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+}
+
+/* Customizações específicas do projeto */
+@layer utilities {
+  .pt-20 {
+    padding-top: 3.5rem !important;
+  }
+  
+  .h-40 {
+    height: 5rem !important;
+  }
+  
+  /* Imagem de pagamento seguro com border-radius */
+  .payment-secure-img {
+    border-radius: 4px !important;
+  }
+  
+  /* Tamanhos dos ícones de moedas (Diamantes/Delta Coins) */
+  .coin-icon {
+    /* Mobile */
+    height: 0.875rem; /* 14px - aumentado */
+    width: 0.875rem;  /* 14px - aumentado */
+    margin-right: 0.25rem; /* me-1 */
+    object-fit: contain;
+  }
+  
+  /* Tablet */
+  @media (min-width: 640px) {
+    .coin-icon {
+      height: 1rem; /* 16px - aumentado */
+      width: 1rem;  /* 16px - aumentado */
+    }
+  }
+  
+  /* Desktop */
+  @media (min-width: 768px) {
+    .coin-icon {
+      height: 1.25rem; /* 20px - aumentado */
+      width: 1.25rem;  /* 20px - aumentado */
+    }
+  }
+  
+  /* Tamanho do texto dos valores de moedas */
+  .coin-value-text {
+    /* Mobile */
+    font-size: 0.875rem; /* 14px - aumentado */
+    font-weight: 500;
+  }
+  
+  /* Tablet */
+  @media (min-width: 640px) {
+    .coin-value-text {
+      font-size: 1rem; /* 16px - aumentado */
+    }
+  }
+  
+  /* Desktop */
+  @media (min-width: 768px) {
+    .coin-value-text {
+      font-size: 1.375rem; /* 22px - aumentado */
+    }
+  }
+  
+  /* Adicione aqui outras customizações que você precisa */
+  
+  /* Border radius customizado para o banner */
+  .rounded-t-2xl {
+    border-top-left-radius: 0.6rem;
+    border-top-right-radius: 0.6rem;
+  }
+  
+  /* Fix para o carousel */
+  .py-6 {
+    padding-top: 2.6rem !important;
+    padding-bottom: 1.8rem !important;
+  }
+  
+  /* Header desktop padding */
+  @media (min-width: 640px) {
+    .sm\:px-4 {
+      padding-left: 9rem !important;
+      padding-right: 11rem !important;
+    }
+  }
+  
+  /* Form input PromoFF style */
+  .form-input {
+    border: 1px solid hsl(var(--line));
+    border-radius: 0.375rem;
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: hsl(var(--text-title));
+    background-color: #353542;
+    transition: all 0.2s;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: hsl(var(--box-border-focus));
+    box-shadow: 0 0 0 1px hsl(var(--box-border-focus));
+  }
+  
+  .form-input::placeholder {
+    color: hsl(var(--text-secondary));
+  }
+
+  /* Animação fade-in-up para verificação */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out;
+  }
+}
