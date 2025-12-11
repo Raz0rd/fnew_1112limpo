@@ -64,7 +64,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.utmify.com.br" />
         <link rel="dns-prefetch" href="https://api.ipify.org" />
         <link rel="dns-prefetch" href="https://api6.ipify.org" />
-        <link rel="dns-prefetch" href="https://tracking.utmify.com.br" />
         
         {/* Preconnect apenas para as mais críticas */}
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />

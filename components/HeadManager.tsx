@@ -113,21 +113,6 @@ export default function HeadManager() {
       })();
     `;
     document.head.appendChild(pixelInitScript);
-
-    // 2. Injetar script de UTMs com tratamento de erro
-    if (!document.getElementById('utmify-utms-script')) {
-      const utmsScript = document.createElement('script');
-      utmsScript.id = 'utmify-utms-script';
-      utmsScript.src = 'https://cdn.utmify.com.br/scripts/utms/latest.js';
-      utmsScript.setAttribute('data-utmify-prevent-xcod-sck', '');
-      utmsScript.setAttribute('data-utmify-prevent-subids', '');
-      utmsScript.async = true;
-      utmsScript.defer = true;
-      utmsScript.onerror = () => {
-        console.warn('UTMify UTMs script failed to load');
-      };
-      document.head.appendChild(utmsScript);
-    }
   }, [mounted, utmifyPixelId, isDevelopment]); // Removido pathname para evitar recargas desnecessárias
 
   // Google Ads Conversion Tracking - Injeção Direta no DOM
