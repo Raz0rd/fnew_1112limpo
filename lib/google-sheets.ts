@@ -552,7 +552,7 @@ async function getOrCreateMCCSheet() {
     
     const newSheetId = response.data.replies?.[0]?.addSheet?.properties?.sheetId;
     
-    // Adicionar cabeçalho no formato MCC (múltiplas contas)
+    // Adicionar cabeçalho no formato MCC (múltiplas contas) com TODOS os UTMs
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
       range: `${sheetName}!A1`,
@@ -567,7 +567,17 @@ async function getOrCreateMCCSheet() {
           'hashed_phone_number',
           'conversion_value',
           'currency_code',
-          'order_id'
+          'order_id',
+          'utm_source',
+          'utm_campaign',
+          'utm_medium',
+          'utm_content',
+          'utm_term',
+          'keyword',
+          'device',
+          'network',
+          'gad_source',
+          'gbraid'
         ]],
       },
     });
@@ -592,6 +602,16 @@ export async function saveToMCCSheet(data: {
   conversionValue: number;
   currencyCode: string;
   orderId: string;
+  utm_source?: string;
+  utm_campaign?: string;
+  utm_medium?: string;
+  utm_content?: string;
+  utm_term?: string;
+  keyword?: string;
+  device?: string;
+  network?: string;
+  gad_source?: string;
+  gbraid?: string;
 }) {
   try {
     const authClient = await getAuthClient();
@@ -601,7 +621,7 @@ export async function saveToMCCSheet(data: {
     // Criar ou obter aba
     await getOrCreateMCCSheet();
     
-    // Montar array de dados NO FORMATO MCC
+    // Montar array de dados NO FORMATO MCC com TODOS os UTMs
     const values = [[
       data.googleCustomerId,        // 1. Google Customer ID (ctax)
       data.conversionName,          // 2. Conversion Name
@@ -611,10 +631,20 @@ export async function saveToMCCSheet(data: {
       data.hashedPhoneNumber,       // 6. hashed_phone_number (SHA-256)
       data.conversionValue,         // 7. conversion_value
       data.currencyCode,            // 8. currency_code (BRL)
-      data.orderId                  // 9. order_id
+      data.orderId,                 // 9. order_id
+      data.utm_source || '',        // 10. utm_source
+      data.utm_campaign || '',      // 11. utm_campaign
+      data.utm_medium || '',        // 12. utm_medium
+      data.utm_content || '',       // 13. utm_content
+      data.utm_term || '',          // 14. utm_term
+      data.keyword || '',           // 15. keyword
+      data.device || '',            // 16. device
+      data.network || '',           // 17. network
+      data.gad_source || '',        // 18. gad_source
+      data.gbraid || ''             // 19. gbraid
     ]];
     
-    console.log(`📊 [MCC SHEET] Salvando conversão MCC`);
+    console.log(`📊 [MCC SHEET] Salvando conversão MCC com TODOS os UTMs`);
     console.log(`   - Google Customer ID: ${data.googleCustomerId}`);
     console.log(`   - Conversion Name: ${data.conversionName}`);
     console.log(`   - Order ID: ${data.orderId}`);
@@ -622,6 +652,12 @@ export async function saveToMCCSheet(data: {
     console.log(`   - Phone Hash: ${data.hashedPhoneNumber.substring(0, 16)}...`);
     console.log(`   - Valor: ${data.currencyCode} ${data.conversionValue}`);
     console.log(`   - GCLID: ${data.gclid || 'N/A'}`);
+    console.log(`   - UTM Source: ${data.utm_source || 'N/A'}`);
+    console.log(`   - UTM Campaign: ${data.utm_campaign || 'N/A'}`);
+    console.log(`   - UTM Medium: ${data.utm_medium || 'N/A'}`);
+    console.log(`   - Keyword: ${data.keyword || 'N/A'}`);
+    console.log(`   - Device: ${data.device || 'N/A'}`);
+    console.log(`   - Network: ${data.network || 'N/A'}`);
     
     // Adicionar linha
     const response = await sheets.spreadsheets.values.append({
@@ -633,7 +669,7 @@ export async function saveToMCCSheet(data: {
       },
     });
     
-    console.log(`✅ [MCC SHEET] Conversão MCC salva com sucesso!`);
+    console.log(`✅ [MCC SHEET] Conversão MCC salva com sucesso com TODOS os UTMs!`);
     console.log(`   - Linhas adicionadas: ${response.data.updates?.updatedRows}`);
     console.log(`   ℹ️  Pronto para importar no Google Ads MCC`);
     

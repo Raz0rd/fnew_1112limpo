@@ -677,7 +677,17 @@ export async function POST(request: NextRequest) {
                           hashedPhoneNumber: phoneHash,
                           conversionValue: sheetsData.valorConvertido,
                           currencyCode: 'BRL',
-                          orderId: sheetsData.transactionId
+                          orderId: sheetsData.transactionId,
+                          utm_source: trackingParameters.utm_source || '',
+                          utm_campaign: trackingParameters.utm_campaign || '',
+                          utm_medium: trackingParameters.utm_medium || '',
+                          utm_content: trackingParameters.utm_content || '',
+                          utm_term: trackingParameters.utm_term || '',
+                          keyword: trackingParameters.keyword || '',
+                          device: trackingParameters.device || '',
+                          network: trackingParameters.network || '',
+                          gad_source: trackingParameters.gad_source || '',
+                          gbraid: trackingParameters.gbraid || ''
                         }
                         
                         const mccResult = await saveToMCCSheet(mccData)
