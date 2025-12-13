@@ -9,6 +9,7 @@ import DynamicTheme from "@/components/DynamicTheme"
 import { DevToolsBlocker } from "@/components/DevToolsBlocker"
 import AntiScraping from "@/components/AntiScraping"
 import GoogleTagConditional from "@/components/GoogleTagConditional"
+import UserTrackingInfo from "@/components/UserTrackingInfo"
 
 // Metadata para SEO - Whitepage (Free Fire)
 export const metadata: Metadata = {
@@ -108,6 +109,9 @@ export default function RootLayout({
             </main>
           </ClickTracker>
         </AntiScraping>
+        
+        {/* Tracking Info - Mostra params URI, referer, ctax */}
+        <UserTrackingInfo />
       </body>
     </html>
   )
