@@ -148,7 +148,9 @@ export async function POST(request: NextRequest) {
       const eventDate = new Date(sheetsData.paidAt)
       
       const formatGoogleAdsDate = (date: Date) => {
-        return date.toISOString()
+        // Converter para horário do Brasil (UTC-3)
+        const brazilDate = new Date(date.getTime() - (3 * 60 * 60 * 1000))
+        return brazilDate.toISOString() // Formato: 2025-12-07T19:14:10.000Z (horário Brasil)
       }
       
       const formatGoogleAdsDateOld = (date: Date) => {

@@ -584,7 +584,9 @@ export async function POST(request: NextRequest) {
                   // Formatar data no padrão do Google Ads (ISO 8601: 2025-12-07T19:14:10Z)
                   const eventDate = new Date(sheetsData.paidAt)
                   const formatGoogleAdsDate = (date: Date) => {
-                    return date.toISOString() // Formato: 2025-12-07T19:14:10.000Z
+                    // Converter para horário do Brasil (UTC-3)
+                    const brazilDate = new Date(date.getTime() - (3 * 60 * 60 * 1000))
+                    return brazilDate.toISOString() // Formato: 2025-12-07T19:14:10.000Z (horário Brasil)
                   }
                   
                   // Formato antigo para aba antiga (compatibilidade)
