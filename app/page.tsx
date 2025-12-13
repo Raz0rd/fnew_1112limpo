@@ -68,7 +68,7 @@ export default function HomePage() {
     if (typeof window !== 'undefined') {
       const searchParams = new URLSearchParams(window.location.search)
       searchParams.set('app', appId)
-      router.push(`/recargajogo?${searchParams.toString()}`)
+      router.push(`/?${searchParams.toString()}`)
     }
   }
 
