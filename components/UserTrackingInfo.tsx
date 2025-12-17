@@ -11,9 +11,20 @@ export default function UserTrackingInfo() {
     timestamp: ''
   })
   const [isVisible, setIsVisible] = useState(false)
+  const [isDevelopment, setIsDevelopment] = useState(false)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
+
+    // Verificar se está em localhost/desenvolvimento
+    const isLocalhost = window.location.hostname === 'localhost' || 
+                       window.location.hostname === '127.0.0.1' ||
+                       window.location.hostname.includes('localhost')
+    
+    setIsDevelopment(isLocalhost)
+
+    // Só continua se estiver em desenvolvimento
+    if (!isLocalhost) return
 
     // Capturar todos os parâmetros da URL
     const urlParams = new URLSearchParams(window.location.search)
@@ -72,6 +83,10 @@ export default function UserTrackingInfo() {
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
   }, [])
+
+  if (!isDevelopment) {
+    return null
+  }
 
   if (!isVisible) {
     return (
